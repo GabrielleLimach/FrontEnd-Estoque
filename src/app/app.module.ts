@@ -6,11 +6,15 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { MaterialComponent } from './components/material/material.component';
 import { FormsModule } from '@angular/forms';
+import { SolicitacoesComponent } from './components/solicitacoes/solicitacoes.component';
+import { CompComponent } from './components/comp/comp.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MaterialComponent
+    MaterialComponent,
+    SolicitacoesComponent,
+    CompComponent
   ],
   imports: [
     BrowserModule,

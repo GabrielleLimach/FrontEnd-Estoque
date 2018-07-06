@@ -1,7 +1,7 @@
 import { Material } from './../../core/model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, observable } from 'rxjs';
 
 
 
@@ -10,21 +10,42 @@ import { Observable } from 'rxjs';
 })
 export class MaterialService {
 
-    materiaisUrl = 'http://localhost:8080/materiais';
+   
   
     constructor(
       private http: HttpClient
     ) {}
   
-    consultar(): Observable<any> {
-      return this.http.get(this.materiaisUrl);
+    // consultar(): Observable<any> {
+    //   return this.http.get(this.materiaisUrl);
+    // }
+    // categorias(): Observable<any> {
+    //   return this.http.get(this.categoriasUrl);
+    // }
+    // tipos(): Observable<any>{
+    //   return this.http.get(this.materiaistipoUrl);
+    // }
+
+
+    Consultas(url): Observable<any>{
+      return this.http.get(url);
     }
-  
-    adicionar(material: Material): Observable<Material> { 
+
+
+    adicionar(material: Material, url): Observable<Material> { 
       const headers = new HttpHeaders().set( 'Content-Type', 'application/json' );
       headers.append( 'Content-Type', 'application/json' );
 
-      return this.http.post<Material>(this.materiaisUrl, material, {headers: headers});
+      return this.http.post<Material>(url, material, {headers: headers});
+     }
+
+     deletar ( id, url): Observable<any>{
+      return this.http.delete(url+"/"+id);
+     }
+
+     altera( id, url): Observable<any>{
+      const headers = new HttpHeaders().set( 'Content-Type', 'application/json' );
+      return this.http.post<Material>(id, url, {headers: headers});
      }
 
      

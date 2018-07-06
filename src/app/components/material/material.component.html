@@ -1,57 +1,86 @@
-<form class="form-fluid" #f="ngForm" (ngSubmit)="adicionar(f)">
-    <div class="row">
-        <!--First column-->
-        <div class="col-md-3">
-            <div class="md-form">
-                <input mdbInputDirective type="text" id="form41" class="form-control" name="nome" [(ngModel)]="material.nome">
-                <label for="form41" class="">Material</label>
+<body> 
+    <div class="text-principal">
+        <h1>Cadastro de Materiais</h1>
+    </div>    
+    <form class="form-fluid" #f="ngForm" (ngSubmit)="adicionar(f)">
+        <div class="row">
+            <!--First column-->
+            <div class="col-md-3">
+                <div class="md-form">
+                    <input mdbInputDirective type="text" id="form41" class="form-control" name="nome" [(ngModel)]="material.nome">
+                    <label for="form41" class="">Material</label>
+                </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="md-form">
-                <input mdbInputDirective type="text" id="form41" class="form-control" name="idsetor" [(ngModel)]="material.fksetor.idsetor">
-                <label for="form41" class="">Local</label>
+            <div class="col-md-3">
+                <div class="md-form">
+                    <input mdbInputDirective type="text" id="form41" class="form-control" name="idsetor" [(ngModel)]="material.fksetor.idsetor">
+                    <label for="form41" class="">Destino</label>
+                </div>
             </div>
-        </div>
+            <div class="col-md-3">
+                <div class="md-form">
+                    <input mdbInputDirective type="text" id="form41" class="form-control" name="quantidade" [(ngModel)]="material.quantidade">
+                    <label for="form41" class="">Quantidade</label>
+                </div>
+            </div>
+            <!--Second column-->
+            <div class="col-md-3">
+                <div class="md-form">
+                    <input mdbInputDirective type="text" id="form41" class="form-control" name="tombo" [(ngModel)]="material.tombo">
+                    <label for="form41" class="">Tombo</label>
+                </div>
+            </div>
 
-        <div class="col-md-3">
-            <div class="md-form">
-                <input mdbInputDirective type="text" id="form41" class="form-control" name="quantidade" [(ngModel)]="material.quantidade">
-                <label for="form41" class="">Quantidade</label>
+            <!--Third column-->
+            <div class="col-md-3">
+                <div class="md-form">
+                    <input mdbInputDirective type="text" id="form41" class="form-control"  name="validade" [(ngModel)]="material.validade">
+                    <label for="form41" class="">Validade</label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label>Categoria</label>
+                <select class="browser-default" name="categoria"  [(ngModel)]="material.fkcategoria.idcategoria">
+                    <option *ngFor="let c of categorias" value={{c?.idcategoria}}>{{c?.descricao}}</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label>Tipo</label>
+                <select class="browser-default" name="tipo" [(ngModel)]="material.fkmaterialtipo.idmaterialtipo">
+                        <option *ngFor="let t of tipos" value={{t?.idmaterialtipo}}>{{t?.tipo}}</option> 
+                </select>
             </div>
         </div>
+        <button type="submit" class="btn btn-primary waves-light" >Salvar</button>
+    </form>
 
-        <!--Second column-->
-        <div class="col-md-3">
-            <div class="md-form">
-                <input mdbInputDirective type="text" id="form51" class="form-control" name="tombo" [(ngModel)]="material.tombo">
-                <label for="form51" class="">Tombo</label>
-            </div>
-        </div>
-
-        <!--Third column-->
-        <div class="col-md-3">
-            <div class="md-form">
-                <input mdbInputDirective type="text" id="form61" class="form-control"  name="validade" [(ngModel)]="material.validade">
-                <label for="form61" class="">Validade</label>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <label>Categoria</label>
-            <select class="browser-default" name="categoria" [options]="categorias" [(ngModel)]="material.fkcategoria.idcategoria">
-                <option value="1">Unidade</option>
-                <option value="2">Caixa</option>
-                <option value="3">Pacote</option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <label>Tipo</label>
-            <select class="browser-default" name="tipo" [options]="tipos" [(ngModel)]="material.fkmaterialtipo.idmaterialtipo" >
-                <option value="1">Permanente</option>
-                <option value="2">Provisorio</option>   
-            </select>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary waves-light" mdbWavesEffect>Salvar</button>
-    {{ materiais | json }}
-</form>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Quantidade</th>
+            <th>Tombo</th>
+            <th>Localização</th>
+            <th>Validade</th>
+            <th>Categoria</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let m of materiais">
+            <th>{{m.idmaterial}}</th>
+            <td>{{m.nome}}</td>
+            <td>{{m.fkmaterialtipo?.tipo}}</td>
+            <td>{{m.quantidade}}</td>
+            <td>{{m.tombo}}</td>
+            <td>{{m.fksetor?.descricao}}</td>
+            <td>{{m.validade}}</td>
+            <td>{{m.fkcategoria?.descricao}}</td>
+            <td><button type="button" class="btn btn-danger waves-light" (click)="apagar(m.idmaterial)">Deletar</button></td>
+            <td><button type="button" class="btn btn-success waves-light" (click)="alterar(m.idmaterial)">Alterar</button></td>
+            <td><button type="submit" class="btn btn-success waves-light" (click)="novo()">Salva</button></td>
+        </tr>
+        </tbody>
+    </table>
+</body>  

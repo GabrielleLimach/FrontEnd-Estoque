@@ -1,3 +1,22 @@
+body, h1{
+    margin: 0px;
+    padding: 0px;
+}
+/*body{
+    padding-left: 300px;
+    padding-top: 75px;
+}*/
+h1{
+    color: #3F729B;
+    padding-left: 20px;
+}
+.text-principal{
+    padding: 2px 16px;
+    background:  #eceff1;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+    transition: 0.3s;
+
+}
 .row{
     margin: 0;
     padding: 10px;
